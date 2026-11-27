@@ -1,37 +1,275 @@
 {
- "name": "repro-forge", "displayName": "Repro Forge", "version": "1.0.0", "publisher": "radwanalmsora",
- "description": "The Universal Bug Reproduction Platform. Capture Once. Reproduce Anywhere.",
- "license": "MIT", "icon": "media/icon.png", "engines": {"vscode": "^1.93.0"},
- "categories": ["Debuggers", "Testing", "Other"], "keywords": ["bug", "reproduction", "diagnostics", "environment", "snapshot"],
- "galleryBanner": {"color": "#101A2B", "theme": "dark"},
- "main": "./dist/extension.js", "activationEvents": ["onStartupFinished"],
- "capabilities": {"untrustedWorkspaces": {"supported": false}, "virtualWorkspaces": false},
- "contributes": {
-  "commands": [
-   {"command": "reproForge.capture", "title": "CAPTURE REPRODUCTION", "category": "Repro Forge", "icon": "$(record)"},
-   {"command": "reproForge.verify", "title": "Verify Environment Against Bundle", "category": "Repro Forge", "icon": "$(verified)"},
-   {"command": "reproForge.open", "title": "Open Report", "category": "Repro Forge"},
-   {"command": "reproForge.clear", "title": "Clear Recorded History", "category": "Repro Forge", "icon": "$(clear-all)"}
+  "name": "forge-studio-pro",
+  "displayName": "Forge Studio Pro",
+  "description": "The software development control center: command center, problem graph, project understanding, workflow automation, testing, debugging, security and API studio.",
+  "version": "1.0.0",
+  "publisher": "radwanalmsora",
+  "author": {
+    "name": "radwanalmsora",
+    "url": "https://github.com/radwanalmsora"
+  },
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/radwanalmsora/forge-studio-pro.git"
+  },
+  "homepage": "https://github.com/radwanalmsora/forge-studio-pro#readme",
+  "bugs": {
+    "url": "https://github.com/radwanalmsora/forge-studio-pro/issues"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Testing",
+    "Debuggers",
+    "Linters"
   ],
-  "viewsContainers": {"activitybar": [{"id": "reproForge", "title": "Repro Forge", "icon": "media/activity.svg"}]},
-  "views": {"reproForge": [{"id": "reproForge.bundles", "name": "Reproduction Bundles"}]},
-  "viewsWelcome": [{"view": "reproForge.bundles", "contents": "Capture Once. Reproduce Anywhere.\n[CAPTURE REPRODUCTION](command:reproForge.capture)\n[Verify a Bundle](command:reproForge.verify)"}],
-  "menus": {"view/title": [
-   {"command": "reproForge.capture", "when": "view == reproForge.bundles", "group": "navigation@1"},
-   {"command": "reproForge.verify", "when": "view == reproForge.bundles", "group": "navigation@2"},
-   {"command": "reproForge.clear", "when": "view == reproForge.bundles"}],
-   "commandPalette": [{"command": "reproForge.open", "when": "false"}]},
-  "keybindings": [{"command": "reproForge.capture", "key": "ctrl+alt+r", "mac": "cmd+alt+r"}],
-  "configuration": {"title": "Repro Forge", "properties": {
-   "reproForge.includeGitDiff": {"type": "boolean", "default": true, "description": "Include uncommitted changes (redacted) in bundles."},
-   "reproForge.safeEnvValues": {"type": "array", "items": {"type": "string"}, "default": ["NODE_ENV", "LANG", "TZ", "SHELL"], "scope": "application", "description": "Environment variables whose values may be recorded. All others are recorded by name only."}
-  }}
- },
- "scripts": {
-  "check": "tsc --noEmit",
-  "vscode:prepublish": "esbuild src/extension.ts --bundle --platform=node --target=node20 --external:vscode --minify --outfile=dist/extension.js",
-  "package": "vsce package --no-dependencies --allow-missing-repository"
- },
- "dependencies": {"fflate": "^0.8.2"},
- "devDependencies": {"@types/node": "^20.14.0", "@types/vscode": "~1.93.0", "@vscode/vsce": "^3.2.0", "esbuild": "^0.25.0", "typescript": "^5.6.0"}
+  "keywords": [
+    "workflow",
+    "testing",
+    "security",
+    "api client",
+    "debugging",
+    "dashboard",
+    "architecture"
+  ],
+  "galleryBanner": {
+    "color": "#141b26",
+    "theme": "dark"
+  },
+  "main": "./src/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": false,
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Analysis works in Restricted Mode. Running commands requires a trusted workspace.",
+      "restrictedConfigurations": [
+        "forge.testCommand",
+        "forge.buildCommand",
+        "forge.deployCommand"
+      ]
+    }
+  },
+  "contributes": {
+    "commands": [
+      {
+        "command": "forge.open",
+        "title": "Open Studio",
+        "category": "Forge",
+        "icon": "$(tools)"
+      },
+      {
+        "command": "forge.scan",
+        "title": "Scan Project",
+        "category": "Forge",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "forge.runTests",
+        "title": "Run All Tests",
+        "category": "Forge",
+        "icon": "$(beaker)"
+      },
+      {
+        "command": "forge.runRelatedTests",
+        "title": "Run Related Tests",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.runWorkflow",
+        "title": "Run Workflow",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.commitWithChecks",
+        "title": "Commit with Checks",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.deploy",
+        "title": "Deploy Project",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.fileImpact",
+        "title": "Show Impact of This File",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.generateTest",
+        "title": "Generate Test Skeleton",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.analyzeStack",
+        "title": "Analyze Stack Trace",
+        "category": "Forge"
+      },
+      {
+        "command": "forge.securityReport",
+        "title": "Export Security Report",
+        "category": "Forge"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "forge",
+          "title": "Forge Studio Pro",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "forge": [
+        {
+          "id": "forge.systems",
+          "name": "Systems"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "forge.systems",
+        "contents": "Open a project folder to use Forge Studio Pro.\n[Open Folder](command:vscode.openFolder)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "forge.open",
+          "when": "view == forge.systems",
+          "group": "navigation@1"
+        },
+        {
+          "command": "forge.scan",
+          "when": "view == forge.systems",
+          "group": "navigation@2"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "forge.fileImpact",
+          "when": "resourceScheme == file",
+          "group": "forge@1"
+        },
+        {
+          "command": "forge.generateTest",
+          "when": "resourceScheme == file",
+          "group": "forge@2"
+        },
+        {
+          "command": "forge.analyzeStack",
+          "when": "editorHasSelection",
+          "group": "forge@3"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "forge.open",
+        "key": "ctrl+alt+shift+f",
+        "mac": "cmd+alt+shift+f"
+      }
+    ],
+    "configuration": {
+      "title": "Forge Studio Pro",
+      "properties": {
+        "forge.scanOnStartup": {
+          "type": "boolean",
+          "default": true,
+          "description": "Index the project when VS Code starts.",
+          "scope": "resource"
+        },
+        "forge.exclude": {
+          "type": "array",
+          "default": [
+            "node_modules",
+            ".git",
+            "dist",
+            "build",
+            "out",
+            "coverage",
+            "vendor",
+            "target",
+            ".venv",
+            "venv",
+            "__pycache__",
+            ".next",
+            ".nuxt",
+            "obj",
+            ".vscode-test"
+          ],
+          "description": "Folder names that are never indexed.",
+          "scope": "resource",
+          "items": {
+            "type": "string"
+          }
+        },
+        "forge.maxFiles": {
+          "type": "number",
+          "default": 5000,
+          "description": "Maximum number of source files to index.",
+          "scope": "resource",
+          "minimum": 100,
+          "maximum": 50000
+        },
+        "forge.testCommand": {
+          "type": "string",
+          "default": "",
+          "description": "Test command. Leave empty to detect it.",
+          "scope": "resource"
+        },
+        "forge.buildCommand": {
+          "type": "string",
+          "default": "",
+          "description": "Build command. Leave empty to detect it.",
+          "scope": "resource"
+        },
+        "forge.deployCommand": {
+          "type": "string",
+          "default": "",
+          "description": "Command that deploys the project.",
+          "scope": "resource"
+        },
+        "forge.commandTimeout": {
+          "type": "number",
+          "default": 600,
+          "description": "Seconds before a project command is stopped.",
+          "scope": "resource",
+          "minimum": 5
+        },
+        "forge.workflows.automaticTriggers": {
+          "type": "boolean",
+          "default": true,
+          "description": "Allow enabled workflows to start on open, save and failures.",
+          "scope": "resource"
+        },
+        "forge.ai.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use a VS Code language model, when available, for AI review and analysis. Forge asks before sending code.",
+          "scope": "resource"
+        },
+        "forge.api.timeout": {
+          "type": "number",
+          "default": 30,
+          "description": "API Studio request timeout in seconds.",
+          "scope": "resource",
+          "minimum": 1,
+          "maximum": 600
+        }
+      }
+    }
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "package": "npx --yes @vscode/vsce@3.9.2 package --no-dependencies"
+  }
 }

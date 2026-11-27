@@ -1,9 +1,8 @@
 .github/**
 .vscode/**
-src/**
-node_modules/**
-media/png/**
-media/*banner*
-tsconfig.json
+.forge/**
+test/**
+scripts/**
+media/readme/**
 .gitignore
-.reproforge/**
+**/*.vsix
