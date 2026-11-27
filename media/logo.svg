@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d2838"/><stop offset="1" stop-color="#0c1119"/></linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9a3d"/><stop offset=".5" stop-color="#e8672c"/><stop offset="1" stop-color="#27c2dc"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f7fb"/><stop offset="1" stop-color="#8d9bb0"/></linearGradient>
+  </defs>
+  <path d="M256 14 466 135v242L256 498 46 377V135z" fill="url(#bg)" stroke="url(#rim)" stroke-width="16" stroke-linejoin="round"/>
+  <path d="M256 48 436 152v208L256 464 76 360V152z" fill="none" stroke="#ffffff" stroke-opacity=".08" stroke-width="3"/>
+  <!-- workflow and neural network -->
+  <g stroke="#27c2dc" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M318 262h42l34-38M360 262l34 40M360 262V196l-30-30"/>
+  </g>
+  <g fill="#0c1119" stroke="#27c2dc" stroke-width="7"><circle cx="394" cy="224" r="15"/><circle cx="394" cy="302" r="15"/><circle cx="330" cy="166" r="15"/><circle cx="360" cy="262" r="12" fill="#27c2dc"/></g>
+  <!-- hammer -->
+  <g transform="rotate(-45 220 232)">
+    <rect x="200" y="214" width="40" height="188" rx="14" fill="#e8672c"/>
+    <path d="M206 330h28M206 352h28M206 374h28" stroke="#0c1119" stroke-opacity=".35" stroke-width="7"/>
+    <path d="M128 150h150l44 26v28l-44 26H128q-12 0-12-12v-56q0-12 12-12z" fill="url(#steel)"/>
+    <rect x="192" y="144" width="56" height="92" rx="8" fill="#46556b"/>
+  </g>
+  <!-- anvil -->
+  <path d="M118 360h230q-10 30-62 34l10 24h22v16H168v-16h22l10-24q-54-6-82-34z" fill="url(#steel)"/>
+  <!-- sparks -->
+  <g stroke="#ffb35c" stroke-width="7" stroke-linecap="round"><path d="M112 318l-24-10M126 296l-14-22M150 330l-2-26"/></g>
+  <text x="394" y="372" font-family="Poppins, Inter, sans-serif" font-size="38" font-weight="700" fill="#27c2dc" text-anchor="middle">AI</text>
+</svg>
