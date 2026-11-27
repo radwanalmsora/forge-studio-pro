@@ -1,0 +1,61 @@
+name: Build VSIX
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          package-manager-cache: false
+
+      - name: Check syntax
+        run: find src media -name '*.js' -print0 | xargs -0 -n1 node --check
+
+      - name: Run tests
+        run: npm test
+
+      - name: Package the extension
+        run: >
+          npx --yes @vscode/vsce@3.9.2 package --no-dependencies
+          --out forge-studio-pro.vsix
+          --baseContentUrl "https://github.com/${{ github.repository }}/blob/HEAD"
+          --baseImagesUrl "https://github.com/${{ github.repository }}/raw/HEAD"
+
+      - name: Upload the VSIX
+        uses: actions/upload-artifact@v7
+        with:
+          name: forge-studio-pro-vsix
+          path: forge-studio-pro.vsix
+          if-no-files-found: error
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download the VSIX
+        uses: actions/download-artifact@v8
+        with:
+          name: forge-studio-pro-vsix
+
+      - name: Attach it to a GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "$GITHUB_REF_NAME" forge-studio-pro.vsix --repo "$GITHUB_REPOSITORY" --generate-notes
