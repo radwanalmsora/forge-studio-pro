@@ -1,0 +1,37 @@
+{
+ "name": "repro-forge", "displayName": "Repro Forge", "version": "1.0.0", "publisher": "radwanalmsora",
+ "description": "The Universal Bug Reproduction Platform. Capture Once. Reproduce Anywhere.",
+ "license": "MIT", "icon": "media/icon.png", "engines": {"vscode": "^1.93.0"},
+ "categories": ["Debuggers", "Testing", "Other"], "keywords": ["bug", "reproduction", "diagnostics", "environment", "snapshot"],
+ "galleryBanner": {"color": "#101A2B", "theme": "dark"},
+ "main": "./dist/extension.js", "activationEvents": ["onStartupFinished"],
+ "capabilities": {"untrustedWorkspaces": {"supported": false}, "virtualWorkspaces": false},
+ "contributes": {
+  "commands": [
+   {"command": "reproForge.capture", "title": "CAPTURE REPRODUCTION", "category": "Repro Forge", "icon": "$(record)"},
+   {"command": "reproForge.verify", "title": "Verify Environment Against Bundle", "category": "Repro Forge", "icon": "$(verified)"},
+   {"command": "reproForge.open", "title": "Open Report", "category": "Repro Forge"},
+   {"command": "reproForge.clear", "title": "Clear Recorded History", "category": "Repro Forge", "icon": "$(clear-all)"}
+  ],
+  "viewsContainers": {"activitybar": [{"id": "reproForge", "title": "Repro Forge", "icon": "media/activity.svg"}]},
+  "views": {"reproForge": [{"id": "reproForge.bundles", "name": "Reproduction Bundles"}]},
+  "viewsWelcome": [{"view": "reproForge.bundles", "contents": "Capture Once. Reproduce Anywhere.\n[CAPTURE REPRODUCTION](command:reproForge.capture)\n[Verify a Bundle](command:reproForge.verify)"}],
+  "menus": {"view/title": [
+   {"command": "reproForge.capture", "when": "view == reproForge.bundles", "group": "navigation@1"},
+   {"command": "reproForge.verify", "when": "view == reproForge.bundles", "group": "navigation@2"},
+   {"command": "reproForge.clear", "when": "view == reproForge.bundles"}],
+   "commandPalette": [{"command": "reproForge.open", "when": "false"}]},
+  "keybindings": [{"command": "reproForge.capture", "key": "ctrl+alt+r", "mac": "cmd+alt+r"}],
+  "configuration": {"title": "Repro Forge", "properties": {
+   "reproForge.includeGitDiff": {"type": "boolean", "default": true, "description": "Include uncommitted changes (redacted) in bundles."},
+   "reproForge.safeEnvValues": {"type": "array", "items": {"type": "string"}, "default": ["NODE_ENV", "LANG", "TZ", "SHELL"], "scope": "application", "description": "Environment variables whose values may be recorded. All others are recorded by name only."}
+  }}
+ },
+ "scripts": {
+  "check": "tsc --noEmit",
+  "vscode:prepublish": "esbuild src/extension.ts --bundle --platform=node --target=node20 --external:vscode --minify --outfile=dist/extension.js",
+  "package": "vsce package --no-dependencies --allow-missing-repository"
+ },
+ "dependencies": {"fflate": "^0.8.2"},
+ "devDependencies": {"@types/node": "^20.14.0", "@types/vscode": "~1.93.0", "@vscode/vsce": "^3.2.0", "esbuild": "^0.25.0", "typescript": "^5.6.0"}
+}

@@ -1,0 +1,9 @@
+.github/**
+.vscode/**
+src/**
+node_modules/**
+media/png/**
+media/*banner*
+tsconfig.json
+.gitignore
+.reproforge/**
